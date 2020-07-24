@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/svid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/svid" />
+
+    <TextView
+        android:id="@+id/azimuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/azimuth" />
+
+    <TextView
+        android:id="@+id/cn0DHzs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cn0DHzs" />
+
+    <TextView
+        android:id="@+id/constellationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/constellationType" />
+
+
+    <TextView
+        android:id="@+id/elevation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/elevation" />
+
+
+</LinearLayout>

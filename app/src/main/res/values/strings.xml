@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Satellite Thingie</string>
+    <string name="info_button_text">Get Info</string>
+    <string name="instruction_text">Press button to get satellite info!</string>
+
+    <string name="svid">SVID</string>
+    <string name="azimuth">Azimuth</string>
+    <string name="cn0DHzs">Cn0DHzs</string>
+    <string name="constellationType">Constellation Type</string>
+    <string name="elevation">Elevation</string>
+    <string name="summary">SUMMARY</string>
+</resources>
