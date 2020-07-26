@@ -19,17 +19,11 @@ public class SatDetails extends AppCompatActivity {
         String cn0DHzs =  intent.getStringExtra(Satellite.CN0DHZS_TAG);
         String elevation = intent.getStringExtra(Satellite.ELEVATION_TAG);
         String constellationType = intent.getStringExtra(Satellite.CONSTELLATION_TAG);
-
-
-
-
         TextView tvSvid = (TextView) findViewById(R.id.svid);
         TextView tvCn0DHzs = (TextView) findViewById(R.id.cn0DHzs);
         TextView tvAzimuth = (TextView) findViewById(R.id.azimuth);
         TextView tvConstellationType = (TextView) findViewById(R.id.constellationType);
         TextView tvElevation = (TextView) findViewById(R.id.elevation);
-
-
         tvSvid.setText(svid);
         tvAzimuth.setText(azimuth);
         tvCn0DHzs.setText(cn0DHzs);

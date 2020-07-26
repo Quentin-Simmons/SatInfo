@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -24,16 +26,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationManager locationManager;
     private ListView satListView;
     private ArrayList<Satellite> satellites;
-    private SatellitedAdapter satDetailsAdapter;
+    private OtherSatelliteAdapter otherSatelliteAdapter;
     private GnssStatus.Callback gnssStatusListener;
     private int minTimeMilliseconds = 10000;
     private int minDistanceMeters = 0;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+
         getPermissions();
         gnssStatusListener =
                 new GnssStatus.Callback() {
@@ -56,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                                     status.getConstellationType(i),
                                     status.getElevationDegrees(i),
                                     status.getSvid(i)));
-                            satDetailsAdapter.notifyDataSetChanged();
+                           // satDetailsAdapter.notifyDataSetChanged();
+                            mAdapter.notifyDataSetChanged();
                         }
                     }
                 };
@@ -74,10 +84,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Log.e(MAIN_TAG,e.getMessage());
         }
 
-        satListView = (ListView) findViewById(R.id.simpleListView);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         satellites = new ArrayList<Satellite>();
-        satDetailsAdapter = new SatellitedAdapter(getApplicationContext(),satellites);
-        satListView.setAdapter(satDetailsAdapter);;
+        mAdapter = new OtherSatelliteAdapter(satellites);
+        recyclerView.setAdapter(mAdapter);
     }
 
     public void getPermissions() {

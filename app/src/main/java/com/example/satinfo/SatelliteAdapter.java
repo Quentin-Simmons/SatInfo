@@ -13,21 +13,32 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SatellitedAdapter extends ArrayAdapter<Satellite> {
-    private static final String ADAPTER_TAG = "Adapter";
+public class SatelliteAdapter extends ArrayAdapter<Satellite> {
 
-    public SatellitedAdapter(Context context, ArrayList<Satellite> satellites) {
+    static class ViewHolder {
+        TextView tvSummary;
+    }
+
+
+    private static final String ADAPTER_TAG = "Adapter";
+    public SatelliteAdapter(Context context, ArrayList<Satellite> satellites) {
         super(context, 0, satellites);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        final Satellite satellite = getItem(position);
 
+        final Satellite satellite = getItem(position);
+        ViewHolder holder;
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.sat_summary, parent, false);
+            holder = new ViewHolder();
+            convertView.setTag(holder);
+        }
+        else {
+            holder = (ViewHolder) convertView.getTag();
         }
         // Lookup view for data population
         TextView tvSummary = (TextView) convertView.findViewById(R.id.summary);
@@ -38,7 +49,6 @@ public class SatellitedAdapter extends ArrayAdapter<Satellite> {
             @Override
             public void onClick(View v) {
                 Log.d(ADAPTER_TAG,"Clicked on the view. ");
-
                 Intent intent = new Intent(getContext(), SatDetails.class);
                 intent.putExtra(Satellite.SVID_TAG,String.valueOf(satellite.svid));
                 intent.putExtra(Satellite.AZIMUTH_TAG,   String.valueOf(satellite.azimuth));
