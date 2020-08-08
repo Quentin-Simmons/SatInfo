@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_camera"
+        android:checkable="true"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_camera_24"
+        android:title="Camera"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_accelerometer"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_leak_remove_24"
+        android:title="accelerometer"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_compass"
+        android:checkable="true"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_compass_calibration_24"
+        android:title="compass"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>

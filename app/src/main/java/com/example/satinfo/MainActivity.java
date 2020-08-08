@@ -9,13 +9,17 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -26,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationManager locationManager;
     private ListView satListView;
     private ArrayList<Satellite> satellites;
-    private OtherSatelliteAdapter otherSatelliteAdapter;
+    private SatelliteAdapter otherSatelliteAdapter;
     private GnssStatus.Callback gnssStatusListener;
     private int minTimeMilliseconds = 10000;
     private int minDistanceMeters = 0;
@@ -35,7 +39,28 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+   private  BottomNavigationView bottomNavigationView;
 
+
+
+/*
+    bottomNavigationView.setOnNavigationItemSelectedListener(
+        new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_favorites:
+
+                case R.id.action_schedules:
+
+                case R.id.action_music:
+
+            }
+            return true;
+        }
+    });
+    *
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,8 +114,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         satellites = new ArrayList<Satellite>();
-        mAdapter = new OtherSatelliteAdapter(satellites);
+        mAdapter = new SatelliteAdapter(satellites);
         recyclerView.setAdapter(mAdapter);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_camera:
+
+                            case R.id.action_accelerometer:
+
+                            case R.id.action_compass:
+
+                        }
+                        return true;
+                    }
+                });
+
+
     }
 
     public void getPermissions() {

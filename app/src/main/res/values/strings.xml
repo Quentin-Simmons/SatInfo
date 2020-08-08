@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Satellite Thingie</string>
+    <string name="app_name">Satellite Locator</string>
     <string name="info_button_text">Get Info</string>
     <string name="instruction_text">Press button to get satellite info!</string>
 
@@ -9,4 +9,11 @@
     <string name="constellationType">Constellation Type</string>
     <string name="elevation">Elevation</string>
     <string name="summary">SUMMARY</string>
+
+
+    <string name="favorites">Favorites</string>
+    <string name="schedule">Schedule</string>
+    <string name="music">Music</string>
+
+
 </resources>

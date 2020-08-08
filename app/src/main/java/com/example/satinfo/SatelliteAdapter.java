@@ -1,65 +1,71 @@
 package com.example.satinfo;
 
+//public class SatelliteAdapter {
+//}
 
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class SatelliteAdapter extends ArrayAdapter<Satellite> {
+public class SatelliteAdapter extends RecyclerView.Adapter<SatelliteAdapter.MyViewHolder> {
+    private static final String TAG = "Satellite Adapter";
 
-    static class ViewHolder {
-        TextView tvSummary;
+    //private String[] mSatellites;
+    private ArrayList<Satellite> mSatellites;
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public TextView textView;
+        public MyViewHolder(View v) {
+            super(v);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                }
+            });
+            textView = (TextView) v.findViewById(R.id.summary);
+        }
     }
 
-
-    private static final String ADAPTER_TAG = "Adapter";
-    public SatelliteAdapter(Context context, ArrayList<Satellite> satellites) {
-        super(context, 0, satellites);
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public SatelliteAdapter(ArrayList<Satellite> satellites) {
+        mSatellites = satellites;
     }
-
+    // Create new views (invoked by the layout manager)
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
+    public SatelliteAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                            int viewType) {
+        // create a new view
+        View v = (View) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.sat_summary, parent, false);
+        MyViewHolder vh = new MyViewHolder(v);
+        return vh;
 
-        final Satellite satellite = getItem(position);
-        ViewHolder holder;
-        // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.sat_summary, parent, false);
-            holder = new ViewHolder();
-            convertView.setTag(holder);
-        }
-        else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        // Lookup view for data population
-        TextView tvSummary = (TextView) convertView.findViewById(R.id.summary);
-        tvSummary.setText(String.valueOf(satellite.svid));
+    }
 
-        // Return the completed view to render on screen
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(ADAPTER_TAG,"Clicked on the view. ");
-                Intent intent = new Intent(getContext(), SatDetails.class);
-                intent.putExtra(Satellite.SVID_TAG,String.valueOf(satellite.svid));
-                intent.putExtra(Satellite.AZIMUTH_TAG,   String.valueOf(satellite.azimuth));
-                intent.putExtra(Satellite.CN0DHZS_TAG, String.valueOf(satellite.cn0DHzs));
-                intent.putExtra(Satellite.ELEVATION_TAG, String.valueOf(satellite.elevation));
-                intent.putExtra(Satellite.CONSTELLATION_TAG,String.valueOf(satellite.constellationType));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getContext().startActivity(intent);
+    
 
-            }
-        });
-        return convertView;
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+        String summary = String.valueOf( mSatellites.get(position).toString());
+        holder.textView.setText(summary);
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return mSatellites.size();
     }
 }
